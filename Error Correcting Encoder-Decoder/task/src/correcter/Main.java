@@ -8,7 +8,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
         Random r = new Random();
-        
         String other = " 0123456789";
         String lower = "abcdefghijklmnopqrstuvwxyz";
         String chars = other + lower + lower.toUpperCase();
