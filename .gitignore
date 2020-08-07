@@ -1,52 +1,19 @@
 # Project exclude paths
 /.gradle/
+/.idea/
+/Error Correcting Encoder-Decoder/Bit-level correction code/
+/Error Correcting Encoder-Decoder/Bit-level error emulator/
+/Error Correcting Encoder-Decoder/Hamming error-correction code/
+/Error Correcting Encoder-Decoder/Symbol-level correction code/
+/Error Correcting Encoder-Decoder/task/test/
 /Error Correcting Encoder-Decoder/task/build/
 /Error Correcting Encoder-Decoder/task/out/
-/Error Correcting Encoder-Decoder/task/out/production/classes/
-/Problems/Check if an array contains two numbers/out/
-/Problems/Check if an array contains two numbers/out/production/classes/
-/Problems/Check if an array is sorted ascending/out/
-/Problems/Check if an array is sorted ascending/out/production/classes/
-/Problems/Convert a date/out/
-/Problems/Convert a date/out/production/classes/
-/Problems/Convert to bytes/out/
-/Problems/Convert to bytes/out/production/classes/
-/Problems/Count words/out/
-/Problems/Count words/out/production/classes/
-/Problems/Create an euphonious word/out/
-/Problems/Create an euphonious word/out/production/classes/
-/Problems/Cutting out the middle of a string/out/
-/Problems/Cutting out the middle of a string/out/production/classes/
-/Problems/Double characters/out/
-/Problems/Double characters/out/production/classes/
-/Problems/Find the first occurrence of the word  the/out/
-/Problems/Find the first occurrence of the word  the/out/production/classes/
-/Problems/Find the seed/out/
-/Problems/Find the seed/out/production/classes/
-/Problems/Finding a collection of elements in a sorted array/out/
-/Problems/Finding a collection of elements in a sorted array/out/production/classes/
-/Problems/Gaussian random numbers/out/
-/Problems/Gaussian random numbers/out/production/classes/
-/Problems/Generate random numbers/out/
-/Problems/Generate random numbers/out/production/classes/
-/Problems/Generating passwords/out/
-/Problems/Generating passwords/out/production/classes/
-/Problems/Individual taxes/out/
-/Problems/Individual taxes/out/production/classes/
-/Problems/Move the first N characters/out/
-/Problems/Move the first N characters/out/production/classes/
-/Problems/Number of occurrences/out/
-/Problems/Number of occurrences/out/production/classes/
-/Problems/Parse url/out/
-/Problems/Parse url/out/production/classes/
-/Problems/Piece of alphabet/out/
-/Problems/Piece of alphabet/out/production/classes/
-/Problems/Reverse input text/out/
-/Problems/Reverse input text/out/production/classes/
-/Problems/The longest ascending sequence/out/
-/Problems/The longest ascending sequence/out/production/classes/
-/Problems/The longest word/out/
-/Problems/The longest word/out/production/classes/
-/Problems/The lucky ticket/out/
-/Problems/The lucky ticket/out/production/classes/
-/Error Correcting Encoder-Decoder/task/test/
+/course-info.yaml
+/course-remote-info.yaml
+/gradlew
+/gradlew.bat
+/received.txt
+/send.txt
+/Error Correcting Encoder-Decoder/task/received.txt
+/Error Correcting Encoder-Decoder/lesson-info.yaml
+/Problems/
