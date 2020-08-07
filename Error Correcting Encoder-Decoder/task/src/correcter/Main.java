@@ -1,57 +1,76 @@
 package correcter;
 
+import java.io.*;
 import java.util.Random;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
 public class Main {
-    private static final Random R = new Random();
-    private static final String OTHER = " 0123456789";
-    private static final String LOWER = "abcdefghijklmnopqrstuvwxyz";
-    private static final String CHARS = OTHER + LOWER + LOWER.toUpperCase();
+    private static final Random RND = new Random();
+    private static final int[] MASKS = {1, 2, 4, 8, 16, 32, 64, 128};
     
     public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);
-        
-        String in = scn.nextLine();
-        System.out.println(in);
-        in = encode(in);
-        System.out.println(in);
-        in = send(in);
-        System.out.println(in);
-        in = decode(in);
-        System.out.println(in);
+        File sendFile = new File("send.txt");
+        File receivedFile = new File("received.txt");
+        char[] fileChars = getCharsFromFile(sendFile);
+        byte[] fileBytes = bitwiseErrors(fileChars);
+        writeToFile(fileBytes, receivedFile);
     }
     
-    private static String encode(String txt) {
-        StringBuilder sb = new StringBuilder();
-        txt.chars().mapToObj(c -> (char) c)
-                .forEach(c -> sb.append(c).append(c).append(c));
-        return sb.toString();
+    // BITWISE ARITHMETICS Error Generator Method
+    private static byte[] bitwiseErrors(char[] chars) {
+        byte[] bytes = toByteArray(chars);
+        IntStream.range(0, bytes.length)
+                .forEach(i -> {
+                    int mask = ~MASKS[RND.nextInt(MASKS.length)];
+                    bytes[i] ^= mask;
+                    bytes[i] = (byte) ~bytes[i];
+                });
+        return bytes;
     }
     
-    private static String send(String txt) {
-        StringBuilder sb = new StringBuilder(txt);
-        for (int i = 0;; i += 3) {
-            int rndIndex = R.nextInt(3) + i;
-            if (rndIndex >= txt.length()) {
-                break;
+    // STRING MANIPULATION Error Generator Method
+    private static byte[] stringManipErrors(char[] chars) {
+        byte[] bytes = new byte[chars.length];
+        for (int i = 0; i < chars.length; ++i) {
+            StringBuilder sb = new StringBuilder(Integer.toBinaryString(chars[i]));
+            while (sb.length() < 8) {
+                sb.insert(0, '0');
             }
-            sb.setCharAt(rndIndex, CHARS.charAt(R.nextInt(CHARS.length())));
+            int n = RND.nextInt(8);
+            sb.setCharAt(n, sb.charAt(n) == '0' ? '1' : '0');
+            bytes[i] = (byte) Integer.parseInt(sb.toString(), 2);
         }
-        return sb.toString();
+        return bytes;
     }
     
-    private static String decode(String txt) {
-        StringBuilder sb = new StringBuilder();
-        Matcher m = Pattern.compile("...").matcher(txt);
-        while (m.find()) {
-            char c = m.group().charAt(0) == m.group().charAt(1)
-                    ? m.group().charAt(0)
-                    : m.group().charAt(2);
-            sb.append(c);
+    private static void writeToFile(byte[] bytes, File file) {
+        try (BufferedOutputStream writer = new BufferedOutputStream(new FileOutputStream(file))) {
+            writer.write(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return sb.toString();
+    }
+    
+    private static char[] getCharsFromFile(File file) {
+        StringBuilder fileData = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            char[] buff = new char[64];
+            int numRead = 0;
+            while ((numRead = reader.read(buff)) != -1) {
+                String readData = String.valueOf(buff, 0, numRead);
+                fileData.append(readData);
+                buff = new char[64];
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fileData.toString().toCharArray();
+    }
+    
+    private static byte[] toByteArray(char[] chars) {
+        byte[] bytes = new byte[chars.length];
+        IntStream.range(0, chars.length)
+                .forEach(i -> bytes[i] = (byte) chars[i]);
+        return bytes;
     }
 }
