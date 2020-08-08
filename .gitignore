@@ -1,8 +1,8 @@
 # Project exclude paths
 /.gradle/
 /.idea/
-/Error Correcting Encoder-Decoder/Bit-level correction code/
 /Error Correcting Encoder-Decoder/Hamming error-correction code/
+/Error Correcting Encoder-Decoder/Bit-level error emulator
 /Error Correcting Encoder-Decoder/Symbol-level error emulator
 /Error Correcting Encoder-Decoder/Symbol-level correction code/
 /Error Correcting Encoder-Decoder/task/test/
@@ -15,4 +15,3 @@
 /Error Correcting Encoder-Decoder/task/received.txt
 /Error Correcting Encoder-Decoder/lesson-info.yaml
 /Problems/
-
