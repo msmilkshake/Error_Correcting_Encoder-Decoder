@@ -20,12 +20,8 @@ public class Main {
         IntStream.range(0, bytes.length)
                 .forEach(i -> {
                     int mask = ~MASKS[R.nextInt(MASKS.length)];
-                    String m = Integer.toBinaryString(mask);
-                    String a = Integer.toBinaryString(bytes[i]);
                     bytes[i] ^= mask & 0xFF;
-                    String b = Integer.toBinaryString(bytes[i]);
                     bytes[i] = (byte) ~bytes[i];
-                    String c = Integer.toBinaryString(bytes[i]);
                 });
         return bytes;
     }
