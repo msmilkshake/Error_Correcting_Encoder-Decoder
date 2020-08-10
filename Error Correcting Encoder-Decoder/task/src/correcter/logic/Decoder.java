@@ -5,62 +5,93 @@ import correcter.tool.Tool;
 public class Decoder {
     
     //Decodes an array of bytes using bitwise arithmetics.
-    public static byte[] decode(byte[] bytes) {
+    public static byte[] bitwiseDecode(byte[] bytes) {
         int decodedByteLength = bytes.length * 3 / 8;
         byte[] decodedBytes = new byte[decodedByteLength];
+        int arrayPointer = 0;
         int buildByte = 0;
-        int arrPointer = 0;
         short buildCount = 0;
         
         for (byte b : bytes) {
-            int diffPair = 0;
-            int parityGroup = b >> 2 & 0xFF;
+            int errorPair = 0;
+            int parityGroup = b >>> 2;
             
-            for (int j = 1; j <= 3; ++j) {
+            for (int i = 1; i <= 3; ++i) {
                 if ((parityGroup & 1) != (parityGroup >> 1 & 1)) {
-                    diffPair = j;
+                    errorPair = i;
                     break;
                 }
-                parityGroup >>= 2;
+                parityGroup >>>= 2;
             }
             
             int correctedBit = 0;
             parityGroup = 0;
-            if (diffPair > 0) {
+            if (errorPair > 0) {
                 int wholeByte = b & 0xFF;
-                for (int j = 0; j < 4; ++j) {
-                    if (j == diffPair) {
+                for (int i = 0; i < 4; ++i) {
+                    if (i == errorPair) {
                         continue;
                     }
-                    correctedBit ^= wholeByte >> (j * 2) & 1;
+                    correctedBit ^= wholeByte >> (i * 2) & 1;
                 }
                 wholeByte >>= 2;
-                for (int j = 3; j > 0; --j) {
+                for (int i = 3; i > 0; --i) {
                     parityGroup <<= 2;
-                    if (j == diffPair) {
+                    if (i == errorPair) {
                         parityGroup |= correctedBit << 1 | correctedBit;
                     } else  {
-                        parityGroup |= wholeByte >> ((j - 1) * 2) & 0b11;
+                        parityGroup |= wholeByte >> ((i - 1) * 2) & 0b11;
                     }
                 }
             } else {
-                parityGroup = b >> 2 & 0xFF;
+                parityGroup = b >>> 2 & 0xFF;
             }
             
             for (int j = 2; j >= 0; --j) {
                 buildByte = buildByte << 1 | (parityGroup >> (j * 2) & 1);
                 ++buildCount;
                 if (buildCount == 8) {
-                    decodedBytes[arrPointer++] = (byte) buildByte;
+                    decodedBytes[arrayPointer++] = (byte) buildByte;
                     buildByte = 0;
                     buildCount = 0;
                 }
-                if (arrPointer == decodedByteLength) {
+                if (arrayPointer == decodedByteLength) {
                     break;
                 }
             }
             
         }
         return decodedBytes;
+    }
+    
+    //Decodes an array of bytes using bitwise arithmetics.
+    public static byte[] stringManipDecode(byte[] bytes) {
+        int decodedByteLength = bytes.length * 3 / 8;
+        byte[] decodedBytes = new byte[decodedByteLength];
+        int arrayPointer = 0;
+        StringBuilder buildByte = new StringBuilder();
+        for (byte b : bytes) {
+            String currentByte = Tool.byteToBinaryString(b);
+            int errorPair = -1;
+            for (int i = 0; i < 3; i += 2) {
+                if (currentByte.charAt(i) != currentByte.charAt(i + 1)) {
+                    errorPair = i;
+                    break;
+                }
+            }
+            StringBuilder parityGroup = new StringBuilder();
+            if (errorPair != -1) {
+                int bitwiseResult = 0;
+                for (int i = 0; i <= 3; ++i) {
+                    if (i == errorPair) {
+                        continue;
+                    }
+                    bitwiseResult += Integer.parseInt(
+                            String.valueOf(currentByte.charAt(i*2)));
+                }
+                bitwiseResult %= 2;
+            }
+        }
+        return null;
     }
 }

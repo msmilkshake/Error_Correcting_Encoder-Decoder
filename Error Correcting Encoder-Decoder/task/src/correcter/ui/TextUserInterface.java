@@ -6,7 +6,6 @@ import correcter.logic.ErrorSimulator;
 import correcter.tool.Tool;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class TextUserInterface {
@@ -62,7 +61,7 @@ public class TextUserInterface {
     
     private void decode() {
         byte[] receivedBytes = Tool.readFileBytes(RECEIVED_FILE);
-        byte[] decodedBytes = Decoder.decode(receivedBytes);
+        byte[] decodedBytes = Decoder.bitwiseDecode(receivedBytes);
         Tool.writeToFile(decodedBytes, DECODED_FILE);
     }
 }
