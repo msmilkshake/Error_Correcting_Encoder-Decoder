@@ -61,7 +61,7 @@ public class TextUserInterface {
     
     private void decode() {
         byte[] receivedBytes = Tool.readFileBytes(RECEIVED_FILE);
-        byte[] decodedBytes = Decoder.bitwiseDecode(receivedBytes);
+        byte[] decodedBytes = Decoder.stringManipDecode(receivedBytes);
         Tool.writeToFile(decodedBytes, DECODED_FILE);
     }
 }

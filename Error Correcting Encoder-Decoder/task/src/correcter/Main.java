@@ -7,6 +7,6 @@ import java.util.Scanner;
 public class Main {
     
     public static void main(String[] args) {
-        new TextUserInterface(new Scanner(System.in)).start();
+        new TextUserInterface(new Scanner("decode")).start();
     }
 }

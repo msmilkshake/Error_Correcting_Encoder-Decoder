@@ -4,7 +4,7 @@ import correcter.tool.Tool;
 
 public class Decoder {
     
-    //Decodes an array of bytes using bitwise arithmetics.
+    // Decodes bytes using BITWISE OPERATIONS.
     public static byte[] bitwiseDecode(byte[] bytes) {
         int decodedByteLength = bytes.length * 3 / 8;
         byte[] decodedBytes = new byte[decodedByteLength];
@@ -64,34 +64,49 @@ public class Decoder {
         return decodedBytes;
     }
     
-    //Decodes an array of bytes using bitwise arithmetics.
+    // Decodes bytes using STRING MANIPULATION.
     public static byte[] stringManipDecode(byte[] bytes) {
         int decodedByteLength = bytes.length * 3 / 8;
         byte[] decodedBytes = new byte[decodedByteLength];
         int arrayPointer = 0;
+        short buildCount = 0;
         StringBuilder buildByte = new StringBuilder();
         for (byte b : bytes) {
             String currentByte = Tool.byteToBinaryString(b);
             int errorPair = -1;
-            for (int i = 0; i < 3; i += 2) {
-                if (currentByte.charAt(i) != currentByte.charAt(i + 1)) {
+            for (int i = 0; i < 3; ++i) {
+                if (currentByte.charAt(i * 2) != currentByte.charAt(i * 2 + 1)) {
                     errorPair = i;
                     break;
                 }
             }
             StringBuilder parityGroup = new StringBuilder();
+            int bitXorResult = 0;
             if (errorPair != -1) {
-                int bitwiseResult = 0;
                 for (int i = 0; i <= 3; ++i) {
                     if (i == errorPair) {
                         continue;
                     }
-                    bitwiseResult += Integer.parseInt(
+                    bitXorResult += Integer.parseInt(
                             String.valueOf(currentByte.charAt(i*2)));
                 }
-                bitwiseResult %= 2;
+                bitXorResult %= 2;
+            }
+            for (int i = 0; i < 3; ++i) {
+                if (i == errorPair) {
+                    buildByte.append(bitXorResult == 0 ? '0' : '1');
+                } else {
+                    buildByte.append(currentByte.charAt(i * 2));
+                }
+                ++buildCount;
+                if (buildCount == 8) {
+                    decodedBytes[arrayPointer++] = (byte) Integer.parseInt(
+                            buildByte.toString(), 2);
+                    buildCount = 0;
+                    buildByte.setLength(0);
+                }
             }
         }
-        return null;
+        return decodedBytes;
     }
 }
