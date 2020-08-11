@@ -2,8 +2,6 @@ package correcter.logic;
 
 import correcter.tool.Tool;
 
-import java.util.Arrays;
-
 public class Encoder {
     
     //Encodes bytes using BITWISE OPERATIONS.
