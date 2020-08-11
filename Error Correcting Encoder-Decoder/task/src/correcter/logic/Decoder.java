@@ -69,8 +69,9 @@ public class Decoder {
         int decodedByteLength = bytes.length * 3 / 8;
         byte[] decodedBytes = new byte[decodedByteLength];
         int arrayPointer = 0;
-        short buildCount = 0;
         StringBuilder buildByte = new StringBuilder();
+        short buildCount = 0;
+        
         for (byte b : bytes) {
             String currentByte = Tool.byteToBinaryString(b);
             int errorPair = -1;
@@ -80,21 +81,22 @@ public class Decoder {
                     break;
                 }
             }
-            StringBuilder parityGroup = new StringBuilder();
-            int bitXorResult = 0;
+            
+            short xorResult = 0;
             if (errorPair != -1) {
                 for (int i = 0; i <= 3; ++i) {
                     if (i == errorPair) {
                         continue;
                     }
-                    bitXorResult += Integer.parseInt(
+                    xorResult += Short.parseShort(
                             String.valueOf(currentByte.charAt(i*2)));
                 }
-                bitXorResult %= 2;
+                xorResult %= 2;
             }
+            
             for (int i = 0; i < 3; ++i) {
                 if (i == errorPair) {
-                    buildByte.append(bitXorResult == 0 ? '0' : '1');
+                    buildByte.append(xorResult == 0 ? '0' : '1');
                 } else {
                     buildByte.append(currentByte.charAt(i * 2));
                 }
@@ -107,6 +109,7 @@ public class Decoder {
                 }
             }
         }
+        
         return decodedBytes;
     }
 }

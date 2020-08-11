@@ -49,19 +49,22 @@ public class TextUserInterface {
     
     private void encode() {
         byte[] sendBytes = Tool.readFileCharsAsBytes(SEND_FILE);
-        byte[] encodedBytes = Encoder.bitwiseEncoder(sendBytes);
+        byte[] encodedBytes = Encoder.stringManipEncoder(sendBytes);
+        encodedBytes = Encoder.bitwiseEncoder(sendBytes);
         Tool.writeToFile(encodedBytes, ENCODED_FILE);
     }
     
     private void send() {
         byte[] encodedBytes = Tool.readFileBytes(ENCODED_FILE);
-        byte[] receivedBytes = ErrorSimulator.bitwiseErrors(encodedBytes);
+        byte[] receivedBytes = ErrorSimulator.stringManipErrors(encodedBytes);
+        receivedBytes = ErrorSimulator.bitwiseErrors(encodedBytes);
         Tool.writeToFile(receivedBytes, RECEIVED_FILE);
     }
     
     private void decode() {
         byte[] receivedBytes = Tool.readFileBytes(RECEIVED_FILE);
         byte[] decodedBytes = Decoder.stringManipDecode(receivedBytes);
+        decodedBytes = Decoder.bitwiseDecode(receivedBytes);
         Tool.writeToFile(decodedBytes, DECODED_FILE);
     }
 }
