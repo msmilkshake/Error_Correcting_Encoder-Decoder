@@ -19,7 +19,7 @@ public class HammingEncoder {
                 if (buildCount == 4) {
                     buildByte <<= 1;
                     
-                    //First encode bit
+                    //P1 bit encode
                     int xorBit = 0;
                     for (offset = 1; offset <= 5; offset += 2) {
                         xorBit ^= buildByte >>> offset & 1;
@@ -27,7 +27,7 @@ public class HammingEncoder {
                     xorBit <<= 7;
                     buildByte |= xorBit;
                     
-                    //Second encode bit
+                    //P2 bit encode
                     xorBit = 0;
                     for (offset = 1; offset <= 5; ++offset) {
                         xorBit ^= buildByte >>> offset & 1;
@@ -36,7 +36,7 @@ public class HammingEncoder {
                     xorBit <<= 6;
                     buildByte |= xorBit;
                     
-                    //Third encode bit
+                    //P4 bit encode
                     xorBit = 0;
                     for (offset = 1; offset <= 3; ++offset) {
                         xorBit ^= buildByte >>> offset & 1;
