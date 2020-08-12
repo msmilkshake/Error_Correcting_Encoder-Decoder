@@ -1,3 +1,5 @@
+<h2 style="text-align: center;">Stage 3/5: Bit-level error emulator</h2>
+
 <h2 style="text-align: center;">Description</h2>
 
 <p>In real telecommunication, errors occur on a bit level. For this reason, we must learn to work with this. Now, instead of doing one error every three bytes, the program on this stage should make an error in one bit per byte. So, every byte would be corrupted, but in a small way.</p>
