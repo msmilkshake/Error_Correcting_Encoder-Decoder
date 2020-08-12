@@ -17,5 +17,6 @@
 /Problems/
 /Error Correcting Encoder-Decoder/Bit-level correction code/
 /gradle/
-settings.gradle
-build.gradle
+/settings.gradle
+/build.gradle
+/shakespeare.txt
