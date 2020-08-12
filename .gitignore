@@ -1,7 +1,0 @@
-# Project exclude paths
-/out/
-/build/
-/decoded.txt
-/encoded.txt
-/received.txt
-/.gitignore
