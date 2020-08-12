@@ -1,3 +1,5 @@
+<h2 style="text-align: center;">Stage 4/5: Bit-level correction code</h2>
+
 <h2 style="text-align: center;">Description</h2>
 
 <p>For errors like on the previous stage, simple code from stage 2 doesn't work, because all of 3 symbols will be with errors. Also, we can't write triples of bits like symbols in stage 2, because some triples will be in different bytes. Because of this, 1 triple of bits can contain 2 errors and this triple can't be corrected.</p>
