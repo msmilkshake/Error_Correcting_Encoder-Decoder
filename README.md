@@ -1,3 +1,5 @@
+<h2 style="text-align: center;">Stage 1/5: Symbol-level error emulator</h2>
+
 <h2 style="text-align: center;">Description</h2>
 
 <p>Wireless connections are everywhere around us. But due to interference, the information is distorted. In this project, you implement a simple algorithm capable of correcting such errors.</p>
