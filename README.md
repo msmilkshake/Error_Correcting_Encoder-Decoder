@@ -1,3 +1,5 @@
+<h2 style="text-align: center;">Stage 5/5: Hamming error-correction code</h2>
+
 <h2 style="text-align: center;">Description</h2>
 
 <p>Code from the previous stage works but is ineffective because every byte contains only 3 significant bits. All the rest is just an overhead to reliably send the message.</p>
