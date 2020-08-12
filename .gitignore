@@ -15,3 +15,7 @@
 /Error Correcting Encoder-Decoder/task/received.txt
 /Error Correcting Encoder-Decoder/lesson-info.yaml
 /Problems/
+/Error Correcting Encoder-Decoder/Bit-level correction code/
+/gradle/
+settings.gradle
+build.gradle
