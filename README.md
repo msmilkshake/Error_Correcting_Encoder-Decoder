@@ -1,3 +1,5 @@
+<h2 style="text-align: center;">Stage 2/5: Symbol-level correction code</h2>
+
 <h2 style="text-align: center;">Description</h2>
 
 <p>Errors are made, but how to correct them?</p>
