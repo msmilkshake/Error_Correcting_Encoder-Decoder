@@ -3,6 +3,7 @@ package correcter.ui;
 import correcter.logic.Decoder;
 import correcter.logic.Encoder;
 import correcter.logic.ErrorSimulator;
+import correcter.logic.HammingEncoder;
 import correcter.tool.Timer;
 import correcter.tool.Tool;
 
@@ -20,7 +21,7 @@ public class TextUserInterface {
     
     public TextUserInterface(Scanner scn) {
         this.SCN = scn;
-        SEND_FILE = new File("shakespeare.txt");
+        SEND_FILE = new File("send.txt");
         ENCODED_FILE = new File("encoded.txt");
         RECEIVED_FILE = new File("received.txt");
         DECODED_FILE = new File("decoded.txt");
@@ -57,11 +58,7 @@ public class TextUserInterface {
         timer.stop();
         System.out.println("File chars loaded in " + timer.get() + "ms");
         timer.start();
-        byte[] encodedBytes = Encoder.stringManipEncoder(sendBytes);
-        timer.stop();
-        System.out.println("String encoding took " + timer.get() + "ms");
-        timer.start();
-        encodedBytes = Encoder.bitwiseEncoder(sendBytes);
+        byte[] encodedBytes = HammingEncoder.bitwiseEncoder(sendBytes);
         timer.stop();
         System.out.println("Bitwise encoding took " + timer.get() + "ms");
         Tool.writeToFile(encodedBytes, ENCODED_FILE);
